@@ -2,7 +2,7 @@
 
 ## Instructions
 
-The character data in your MongoDB database has been pulled from https://swapi.dev/.
+The character data in your MongoDB database has been pulled from https://swapi.tech/.
 As well as 'people', the API has data on starships.
 Using Python, write code to pull data on all available starships from the API.
 The "pilots" key contains URLs pointing to the characters who pilot the starship.
