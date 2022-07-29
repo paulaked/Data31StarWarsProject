@@ -1,3 +1,10 @@
-# Unit Testing Plan
+import requests
+import pytest
 
-# Test function that pulls all available starships from api
+
+def test_api_connection():
+    url = "http://swapi.dev/api/starships"
+    response = requests.get(url)
+    assert response.status_code == 200
+
+
