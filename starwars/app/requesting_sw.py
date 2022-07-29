@@ -81,8 +81,3 @@ def read_from_db(db):
         return False
 
     return True
-
-
-db = set_up_db()
-dl_trans_ins(db)
-read_from_db(db)
