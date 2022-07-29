@@ -1,3 +1,7 @@
+from app.requesting_sw import *
+
 
 if __name__ == '__main__':
-    pass  # Replace this with code to run your app
+    get_api = GetApi()
+    db = get_api.set_up_db()
+
