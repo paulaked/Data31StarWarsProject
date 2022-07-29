@@ -2,29 +2,18 @@
 
 Author: Benjamin Warren
 
-## Instructions
+Trello: https://trello.com/b/z6uBvDVe/star-wars-project
 
-The character data in your MongoDB database has been pulled from https://swapi.dev/.
-As well as 'people', the API has data on starships.
-Using Python, write code to pull data on all available starships from the API.
-The "pilots" key contains URLs pointing to the characters who pilot the starship.
-Use these to replace 'pilots' with a list of ObjectIDs from our characters collection, then insert the starships into their own collection in MongoDB.
-(Make sure you drop any existing starships collections.)
+My Plan: 
 
-You have until Monday EOD.
+I am going to use functional programming to: 
 
-## Requirements
+1. get a list of the starships url. 
 
-- Use good coding principles.  That means testing, appropriate comments, good naming conventions and handling errors gracefully.
-- Follow PEP 8
-- Create a job board in Trello or similar to keep track of your user stories.  Provide a link to that job board in your version of this README.
-- Your code should utilise functional programming OR object-oriented programming
-- Use Test Driven Development: write your tests first
+2. get a list of the object IDs of the pilots for each of these URLs. 
 
-## Using this repo
+3. create a dictionary of the starship with the pilot IDs in place. 
 
-- Branch off from main.
-- Use your own name for the name of the branch (e.g. mine would be PaulaKedra - please copy this format).
-- Make sure you commit and push to the remote repo frequently to keep your work up-to-date.
-- The gitignore should catch most unnecessary project files, but do pay attention to what you are adding to the repo.
-- Replace this README with an appropriate README for your project (including a link to your job board).
+4. Create a collection and append the dictionaries to the collection.
+
+This will result in the code creating a new starships collection which will contain a list of pilot IDs in each starship.
