@@ -24,11 +24,54 @@ def set_db(dbname):
     return db
 
 
+
+
 def get_api():
     url = "https://swapi.dev/api/starships/"
-    request_api = requests.get(url)
+    code = requests.get(url)
 
-    return request_api
+    return code
 
-#def
+
+def get_api_info(url):
+
+    response = requests.get(url)
+    return response.json()
+
+
+def get_starships():
+    pg_number = 1
+    ships = []
+    while not False:
+
+        starships = get_api_info("https://swapi.dev/api/starships/?page=" + str(pg_number))
+
+        for starship in starships['results']:
+            ships.append(starship)
+
+        if starships['next'] is None:
+            return ships
+        else:
+            pg_number += 1
+
+
+def drop_unwated_columns(ships):
+    # delete the 'created', 'edited' and 'url'
+    for ship in ships:
+        try:
+            del ship['url']
+        except:
+            print("Url Key has been removed.")
+
+        try:
+            del ship['edited']
+        except:
+            print("Edited Key has been removed.")
+
+        try:
+            del ship['created']
+        except:
+            print("Created Key has been removed.")
+
+    return ships
 
