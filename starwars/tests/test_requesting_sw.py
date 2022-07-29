@@ -21,6 +21,6 @@ class Apitests(unittest.TestCase):
         '''test to see if database is there'''
         self.assertEqual(type(self.api_test.set_up_db()), pymongo.database.Database)
 
-    #dict_test = {"a": "1"}
-    #def test_get_api(self):
-        self.assertDictEqual(type(self.api_test.get_from_api()), type(self.dict_test))
+    dict_test = {"a": "1"}
+    def test_get_api(self):
+        self.assertEqual(type(self.api_test.get_from_api("https://swapi.dev/api/starships/?page=1")), type(self.dict_test))
