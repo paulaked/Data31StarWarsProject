@@ -1,5 +1,6 @@
 # Unit Testing Plan
 
-# Test function that pulls all available starships from api
-# Test function that converts json objects to MongoDB documents
-# Test function that adds pilots to each starship document
+# Test function that sets up databases.
+# Test function that pulls data from api.
+# Test function that downloads, transforms and inserts data.
+# Test function that reads from transformed collection.
