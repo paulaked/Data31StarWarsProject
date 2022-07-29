@@ -71,5 +71,18 @@ def dl_trans_ins(db):
     return end_of_json
 
 
+def read_from_db(db):
+    # Loops through all documents in the 'starships' collection and displays their names and pilots.
+
+    try:
+        for name_pilots in db.starships.find({}, {"_id": 0, "name": 1, "pilots": 1}):
+            print(name_pilots)
+    except:
+        return False
+
+    return True
+
+
 db = set_up_db()
 dl_trans_ins(db)
+read_from_db(db)

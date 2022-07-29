@@ -3,13 +3,12 @@ from app import requesting_sw
 import pymongo
 
 
-# Unit Testing Plan
-
 # Test function that sets up databases.
 class Tests(unittest.TestCase):
+    db = requesting_sw.set_up_db()
+
     def test_set_up_db(self):
-        db = requesting_sw.set_up_db()
-        self.assertIsInstance(db, pymongo.database.Database, "Database not returned")
+        self.assertIsInstance(self.db, pymongo.database.Database, "Database not returned")
 
     # Test function that pulls data from api.
     def test_get_from_api(self):
@@ -21,9 +20,12 @@ class Tests(unittest.TestCase):
 
     # Test function that downloads, transforms and inserts data.
     def test_dl_trans_ins(self):
-        db = requesting_sw.set_up_db()
-        self.assertTrue(requesting_sw.dl_trans_ins(db), "Data could not be transformed.")
+        self.assertTrue(requesting_sw.dl_trans_ins(self.db), "Data could not be transformed.")
 
-# Test function that reads from transformed collection.
+    # Test function that reads from transformed collection.
+    def test_read_from_db(self):
+        self.assertTrue(requesting_sw.dl_trans_ins(self.db), "Data could not be read.")
 
-unittest.main()
+
+if __name__ == "__main__":
+    unittest.main()
