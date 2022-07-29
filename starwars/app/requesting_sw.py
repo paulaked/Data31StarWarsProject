@@ -35,14 +35,51 @@ class GetApi:
         '''gets the starships'''
         page_number = 1 ## referencing starships page number
 
-        starships = self.get_from_api("https://swapi.dev/api/starships/?page=" + str(page_number))
-
         ships = []
-        for starship in starships['results']:
-            ships.append(starship)
+        while not False:
+
+            starships = self.get_from_api("https://swapi.dev/api/starships/?page=" + str(page_number))
+
+            for starship in starships['results']:
+                ships.append(starship)
+
+            if starships['next'] is None:
+                return ships
+            else:
+                page_number += 1
+
+        #return ships
+
+    def drop_columns(self,ships):
+        '''to delete the keys as stated'''
+        #print(ships)
+        for ship in ships:
+            try:
+                del ship['url']
+            except:
+                print("url key doesn't exist")
+
+            try:
+                del ship["created"]
+            except:
+                print("created key doesn't exist")
+
+            try:
+                del ship["edited"]
+            except:
+                print("edited key doesn't exist")
+
         return ships
 
-    def get_pilots(self):
+    def get_pilots(self, ships):
+
+        #print(ships)
+        for ship in ships:
+            if ship['pilots']:
+                for pilot in ship['pilots']:
+                    print(self.get_from_api(pilot))
+                    pilot_data = self.get_from_api(pilot)
+                    
 
 
     def read_from_db(self):
@@ -51,4 +88,6 @@ class GetApi:
 
 get_api = GetApi()
 db = get_api.set_up_db()
-get_api.get_starships()
+ships = get_api.get_starships()
+ships = get_api.drop_columns(ships)
+get_api.get_pilots(ships)
