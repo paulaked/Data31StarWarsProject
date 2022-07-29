@@ -1,7 +1,8 @@
 import pymongo
+import requests
+
 
 def set_up_db():
-
     # Connect to 'starwars31' database.
     client = pymongo.MongoClient()
     db = client['starwars31']
@@ -14,3 +15,8 @@ def set_up_db():
         db.starships.drop()
         db.create_collection("starships")
     return db
+
+
+def get_from_api(url):
+    response = requests.get(url)
+    return response
