@@ -1,5 +1,7 @@
 # Data 31 Star Wars Project
 
+Author: Benjamin Warren
+
 ## Instructions
 
 The character data in your MongoDB database has been pulled from https://swapi.dev/.
