@@ -2,10 +2,10 @@ import pymongo
 import requests
 
 
-def set_up_db():
+def set_up_db(name_db):
     # Connect to 'starwars31' database.
     client = pymongo.MongoClient()
-    db = client['starwars31']
+    db = client[name_db]
 
     # Check if collection already exists.
     try:

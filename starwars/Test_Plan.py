@@ -5,7 +5,7 @@ import pymongo
 
 # Test function that sets up databases.
 class Tests(unittest.TestCase):
-    db = requesting_sw.set_up_db()
+    db = requesting_sw.set_up_db('starwars31')
 
     def test_set_up_db(self):
         self.assertIsInstance(self.db, pymongo.database.Database, "Database not returned")

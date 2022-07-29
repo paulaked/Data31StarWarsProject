@@ -4,9 +4,10 @@ import sys
 import io
 
 if __name__ == '__main__':
+    name_db = input("Enter name of database: ")
 
     # Set up database.
-    db = requesting_sw.set_up_db()
+    db = requesting_sw.set_up_db(name_db)
 
     # Download, transform and insert data.
     requesting_sw.dl_trans_ins(db)
