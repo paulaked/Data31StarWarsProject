@@ -19,8 +19,11 @@ class Tests(unittest.TestCase):
         status_code = requesting_sw.get_from_api("https://swapi.dev/api/people5").status_code
         self.assertEqual(status_code, 404, "Incorrect response code")
 
-
-# Test function that downloads, transforms and inserts data.
+    # Test function that downloads, transforms and inserts data.
+    def test_dl_trans_ins(self):
+        db = requesting_sw.set_up_db()
+        self.assertTrue(requesting_sw.dl_trans_ins(db), "Data could not be transformed.")
 
 # Test function that reads from transformed collection.
+
 unittest.main()
