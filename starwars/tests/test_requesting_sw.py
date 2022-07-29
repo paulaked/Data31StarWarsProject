@@ -14,10 +14,11 @@ class Apitests(unittest.TestCase):
     api_test = GetApi()
 
     def test_get_api(self):
-        #url = requests.get("https://swapi.dev/")
+        '''test to see if connection is ok'''
         self.assertEqual(self.api_test.get_api().status_code,200)
 
-
-
+    def test_db(self):
+        '''test to see if database is there'''
+        self.assertEqual(type(self.api_test.set_up_db()), pymongo.database.Database)
 
 
