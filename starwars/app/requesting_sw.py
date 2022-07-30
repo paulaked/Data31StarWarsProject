@@ -10,6 +10,21 @@ def api_connection(url):
 
 
 def get_all_starships(api_dict):
-    pass
+    results_list = []
+    page = 1
+    while api_dict["next"] is not None:
+        results_list += api_dict["results"]
+        page += 1
+        api_dict = api_connection(f"https://swapi.dev/api/starships/?page={page}")
+    api_dict = api_connection(f"https://swapi.dev/api/starships/?page={page}")
+    results_list += api_dict['results']
+    return results_list
 
 
+url = "http://swapi.dev/api/starships"
+
+connection_dict = api_connection(url)
+ships_list = get_all_starships(connection_dict)
+
+print(connection_dict)
+print(ships_list)
