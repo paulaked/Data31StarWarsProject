@@ -69,8 +69,6 @@ def read_from_db(db):
 def remove_fields(starship):
     # The 'created', 'edited' and 'url' fields need to removed from the JSON objects.
 
-    print (starship)
-
     fields_to_be_removed = ['created', 'edited', 'url']
     for fields in fields_to_be_removed:
         starship.pop(fields)
