@@ -32,34 +32,17 @@ def dl_trans_ins(db):
 
     while not end_of_json:
 
+        # Download starship data.
         starships = get_from_api("https://swapi.dev/api/starships/?page=" + str(page_no)).json()
 
         for starship in starships['results']:
 
-            # List to store Object IDs of pilots.
-            pilots_list = []
-
-            for pilot in starship['pilots']:
-
-                # Get the Object IDs of each pilot in the list.
-                pilot_details = get_from_api(pilot).json()
-                pilot_name = pilot_details['name']
-                person_id = db.characters.find({"name": pilot_name}, {"_id": 1})
-
-                for id_value in person_id:
-                    pilots_list.append(id_value["_id"])
-
-            # Replace the list of URLs in 'pilots' key with Object IDs from 'characters' collection.
-            pilots = {'pilots': pilots_list}
-            starship.update(pilots)
-
-            # The 'created', 'edited' and 'url' fields need to removed from the JSON objects.
-            fields_to_be_removed = ['created', 'edited', 'url']
-            for fields in fields_to_be_removed:
-                starship.pop(fields)
+            # Transform data.
+            starship_with_urls_replaced = replace_urls(starship, db)
+            starship_with_fields_removed = remove_fields(starship_with_urls_replaced)
 
             # Insert transformed JSON objects as documents in 'starships' collection.
-            db.starships.insert_one(starship)
+            db.starships.insert_one(starship_with_fields_removed)
 
         # All data has been processed once last page of data has been reached.
         if starships['next'] is None:
@@ -81,3 +64,36 @@ def read_from_db(db):
         return False
 
     return True
+
+
+def remove_fields(starship):
+    # The 'created', 'edited' and 'url' fields need to removed from the JSON objects.
+
+    print (starship)
+
+    fields_to_be_removed = ['created', 'edited', 'url']
+    for fields in fields_to_be_removed:
+        starship.pop(fields)
+    return starship
+
+
+def replace_urls(starship, db):
+
+    # List to store Object IDs of pilots.
+    pilots_list = []
+
+    for pilot in starship['pilots']:
+
+        # Get the Object IDs of each pilot in the list.
+        pilot_details = get_from_api(pilot).json()
+        pilot_name = pilot_details['name']
+        person_id = db.characters.find({"name": pilot_name}, {"_id": 1})
+
+        for id_value in person_id:
+            pilots_list.append(id_value["_id"])
+
+    # Replace the list of URLs in 'pilots' key with Object IDs from 'characters' collection.
+    pilots = {'pilots': pilots_list}
+    starship.update(pilots)
+
+    return starship
