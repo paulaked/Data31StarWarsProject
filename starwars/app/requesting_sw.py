@@ -87,7 +87,7 @@ class GetApi:
         for ship in ships:
             pilots_list = []
             for pilots in ship['pilots']:
-                pilot_detail = get_api.get_from_api(pilots)['name']
+                pilot_detail = self.get_from_api(pilots)['name']
                 get_id = db.characters.find_one({"name": pilot_detail})
                 pilot_id = get_id.get('_id')
                 pilots_list.append(pilot_id)
