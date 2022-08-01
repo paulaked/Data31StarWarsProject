@@ -14,7 +14,8 @@ class GetApi:
     def set_up_db(self):
         '''set up database and make a starships collection'''
         client = pymongo.MongoClient()
-        db = client['starwars']
+        dbname = input("Please enter your database name: ")
+        db = client[dbname]
 
         try:
             db.create_collection("starships")
@@ -96,6 +97,13 @@ class GetApi:
             # starships.update_one(updated)
             #print(ship)
             db.starships.insert_one(ship)
+
+    def read_from_db(self):
+        try:
+            for ships in db.starships.find({},{"name":1, "pilots": 1}):
+                print(ships)
+        except:
+            print("Collection doesn't exist")
 
     #def change_data(self, ships):
         #starships = db['starships']
@@ -180,16 +188,8 @@ class GetApi:
         #        pilot_id = db.characters.find({"name": pilot_name}, {"_id": 1})
         #        print(pilot_id)
                 #ship.update(get_api.get_from_api(pilot_url)["_id"])
-
         #print(ships)
                 #print(get_api.get_from_api(pilot_url))
-
-    def read_from_db(self):
-        try:
-            for ships in db.starships.find({},{"name":1, "pilots": 1}):
-                print(ships)
-        except:
-            print("Collection doesn't exist")
 
 get_api = GetApi()
 db = get_api.set_up_db()
@@ -198,7 +198,3 @@ ships = get_api.drop_columns(ships)
 pilots = get_api.get_pilots(ships)
 get_api.update_data(ships)
 get_api.read_from_db()
-#get_api.change_data(ships)
-#get_api.add_data(ships)
-#get_api.change_data(ships)
-#get_api.read_from_db()
