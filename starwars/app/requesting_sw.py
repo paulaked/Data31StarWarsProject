@@ -23,7 +23,8 @@ def set_db():
     return db
 
 
-def get_api():
+def api_status():
+    # Checking the status code of the API
     url = "https://swapi.dev/api/starships/"
     code = requests.get(url)
 
@@ -31,12 +32,13 @@ def get_api():
 
 
 def get_api_info(url):
-
+    # Exploring the Star ships information from the API
     response = requests.get(url)
     return response.json()
 
 
 def get_starships():
+    # Creating a list of the Star ships.
     pg_number = 1
     ships = []
     while not False:
@@ -53,7 +55,7 @@ def get_starships():
 
 
 def drop_unwanted_columns(ships):
-    # deleting the 'created', 'edited' and 'url'
+    # deleting the 'created', 'edited' and 'url' details from the starship information.
     for ship in ships:
         try:
             del ship['url']
@@ -74,6 +76,7 @@ def drop_unwanted_columns(ships):
 
 
 def get_pilots(ships):
+    # Creating a list of the pilots found in the Star ships list.
     pilots = []
     for ship in ships:
         if ship['pilots']:
@@ -82,12 +85,8 @@ def get_pilots(ships):
     return pilots
 
 
-def add_data(ships):
-    for ship in ships:
-        db.starships.insert_one(ship)
-
-
-def update_data(ships):
+def insert_data(ships):
+    # Inserting the Pilot ID referenced from the Characters Collection into the Star ships collection.
     for ship in ships:
         pilot_list = []
         for pilots in ship['pilots']:
@@ -101,8 +100,9 @@ def update_data(ships):
 
 
 def read_from_db():
+    # Reading the newly transformed data from the Star Wars database.
     try:
-        for ships in db.starships.find({},{"name": 1, "pilots": 1}):
+        for ships in db.starships.find({}, {"name": 1, "pilots": 1}):
             print(ships)
     except:
         print("Collection doesn't exist")
@@ -112,5 +112,5 @@ db = set_db()
 ships = get_starships()
 ships = drop_unwanted_columns(ships)
 pilots = get_pilots(ships)
-update_data(ships)
+insert_data(ships)
 read_from_db()
