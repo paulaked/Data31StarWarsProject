@@ -16,14 +16,13 @@ def set_db():
         # noinspection PyUnresolvedReferences
 
     except pymongo.errors.CollectionInvalid:
-        print("Collection Starships already exists")
+        return "Starships collection already exists and will be deleted."
         db.drop_collection("starships")
         db.create_collection("starships")
 
     finally:
-        print("The Starships collection has been deleted and recreated")
+        return db
 
-    return db
 
 
 def api_status():
@@ -63,17 +62,17 @@ def drop_unwanted_columns(ships):
         try:
             del ship['url']
         except:
-            print("Url Key has been removed.")
+            return "Url Key has been removed."
 
         try:
             del ship['edited']
         except:
-            print("Edited Key has been removed.")
+            return "Edited Key has been removed."
 
         try:
             del ship['created']
         except:
-            print("Created Key has been removed.")
+            return "Created Key has been removed."
 
     return ships
 
@@ -102,18 +101,18 @@ def insert_data(ships):
         db.starships.insert_one(ship)
 
 
-def read_from_db():
+def read_from_db(starship):
     # Reading the name and pilot list from the newly transformed data from the Star Wars database.
     try:
-        for ships in db.starships.find({}, {"_id": 0}):
-            print(ships)
+        for ships in db.starships.find({"name": starship}, {"_id": 0}):
+            return ships
     except:
-        print("Collection doesn't exist")
+        return "Collection doesn't exist"
 
 
 db = set_db()
-ships = get_starships()
+'''ships = get_starships()
 ships = drop_unwanted_columns(ships)
 pilots = get_pilots(ships)
 insert_data(ships)
-read_from_db()
+read_from_db("X-wing")'''

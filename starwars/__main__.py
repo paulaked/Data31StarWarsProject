@@ -1,3 +1,8 @@
+from starwars.app.requesting_sw import *
 
-if __name__ == '__main__':
-    pass  # Replace this with code to run your app
+db = set_db()
+ships = get_starships()
+ships = drop_unwanted_columns(ships)
+pilots = get_pilots(ships)
+insert_data(ships)
+print(read_from_db("X-wing"))
