@@ -88,4 +88,21 @@ def combine_starships_and_pilotID(url, pilot_ID_list):
     del json_data["url"]
     return (json_data)
 
+# Task 4 - Adding the new data to the collection.
+
+def test_add_to_collection():
+    y = combine_starships_and_pilotID("https://swapi.dev/api/starships/12",
+                                      pilot_ID_list("https://swapi.dev/api/starships/12"))
+    add_to_collection(y)
+    for item in db.starships.find({"name": "X-wing"}):
+        characters = db.characters.find({"name": "Luke Skywalker"}, {"name": 1, "_id": 1})
+        for character in characters:
+            character_id = character["_id"]                                                     # Obtaining the object ID of the pilot
+    assert(type(item["pilots"][0])) == type(character_id)                                       #Checking that the object IDs in the collection are of type bson.
+
+def add_to_collection(json_data):
+    x = new_col.insert_one(json_data)
+
+
+
 
