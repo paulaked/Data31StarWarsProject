@@ -54,26 +54,37 @@ def convert_pilot_url_to_name(url):
     return name
 
 
-def pilots_names_to_ids(ships_list):
+def pilots_url_to_names(ships_list):
     for starship in ships_list:
-        pilots_ids = []
+        pilots_names = []
         for pilot in starship.get("pilots"):
             pilot_name = convert_pilot_url_to_name(pilot)
-            pilot_id = db.characters.find({"name":pilot_name}, {"_id":1})
-            pilots_ids.append(pilot_id)
-        starship["pilots"] = pilots_ids
+            # pilot_id = db.characters.find({"name": pilot_name}, {"_id": 1})
+            pilots_names.append(pilot_name)
+        starship["pilots"] = pilots_names
     return ships_list
 
+
+def add_to_starships_coll(documents):
+    db = connect_with_db()
+    return db.starships.insert_many(documents)
+
+
+#### transfer to main
 
 url = "http://swapi.dev/api/starships"
 
 db = connect_with_db()
+# db.starships.drop()
 
 connection_dict = api_connection(url)
 ships_list = get_all_starships(connection_dict)
 clean_ships_list = clean_all_starships(ships_list)
 
-pilots_names_new = pilots_names_to_ids(clean_ships_list)
+clean_ships_with_names = pilots_url_to_names(clean_ships_list)
+add_to_starships_coll(clean_ships_with_names)
 
-for ship in pilots_names_new:
-    print(ship)
+
+
+#### neew
+# add_data = add_to_collection(pilots_names_new)
