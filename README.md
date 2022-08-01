@@ -27,4 +27,5 @@ You have until Monday EOD.
 - The gitignore should catch most unnecessary project files, but do pay attention to what you are adding to the repo.
 - Replace this README with an appropriate README for your project (including a link to your job board).
 
-coded by: Amir Naghieh
+Coded By: Amir Naghieh
+Trello: https://trello.com/b/NFJFUhQ3/starwarsapi
