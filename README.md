@@ -1,5 +1,17 @@
 # Data 31 Star Wars Project
 
+Coded By: Amir Naghieh
+Trello: https://trello.com/b/NFJFUhQ3/starwarsapi
+
+*To give instructions on how to run the request.
+
+*note about how the request may take several minutes, please wait patiently
+
+
+
+
+
+TO DELETE:_________________________________
 ## Instructions
 
 The character data in your MongoDB database has been pulled from https://swapi.dev/.
@@ -26,6 +38,4 @@ You have until Monday EOD.
 - Make sure you commit and push to the remote repo frequently to keep your work up-to-date.
 - The gitignore should catch most unnecessary project files, but do pay attention to what you are adding to the repo.
 - Replace this README with an appropriate README for your project (including a link to your job board).
-
-Coded By: Amir Naghieh
-Trello: https://trello.com/b/NFJFUhQ3/starwarsapi
+____________________________________________________________________
