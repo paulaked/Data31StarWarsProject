@@ -1,92 +1,24 @@
+# importing required packages and setting up connection to database
 import pymongo
 import requests
-import json
+
+client = pymongo.MongoClient()
+db = client['starwars31']
+base_url = 'https://swapi.dev/api/'
 
 
-def connect_with_db(db_name="starwars31"):
-    client = pymongo.MongoClient()
-    return client[db_name]
-
-
-def create_collection(coll_name="starships"):
-    db = connect_with_db()
-
-    try:
-        db.create_collection(coll_name)
-    except:
-        print("Collection already exists, all collection date will be replaced!!!")
-        db.starships.drop()
-        db.create_collection(coll_name)
-    return db
-
-
-def api_connection(url = "http://swapi.dev/api/starships"):
-    response = requests.get(url)
-    return response.json()
-
-
-def get_all_starships(api_dict):
-    results_list = []
-    page = 1
-    while api_dict["next"] is not None:
-        results_list += api_dict["results"]
-        page += 1
-        api_dict = api_connection(f"https://swapi.dev/api/starships/?page={page}")
-    api_dict = api_connection(f"https://swapi.dev/api/starships/?page={page}")
-    results_list += api_dict['results']
-    return results_list
-
-
-def clean_all_starships(starships_list):
-    for item in starships_list:
-        item.pop("created")
-        item.pop("edited")
-        item.pop("url")
-    return starships_list
-
-
-# ### git commit do tad
-def convert_pilot_url_to_name(url):
-    api_json = api_connection(url)
-    name = api_json['name']
-    return name
-
-
-def pilots_url_to_names(ships_list):
-    for starship in ships_list:
-        pilots_ids = []
-        for pilot in starship.get("pilots"):
-            pilot_name = convert_pilot_url_to_name(pilot)
-            pilot_id = db.characters.find({"name": pilot_name}, {"_id": 1})
-            for result in pilot_id:
-                pilots_ids.append(result["_id"])
-        starship["pilots"] = pilots_ids
-    return ships_list
-
-
-def add_to_starships_coll(documents):
-    db = connect_with_db()
-    return db.starships.insert_many(documents)
-
-url = "http://swapi.dev/api/starships"
-
-db = connect_with_db()
-db.starships.drop()
-
-connection_dict = api_connection(url)
-ships_list = get_all_starships(connection_dict)
-clean_ships_list = clean_all_starships(ships_list)
-
-# add to collection
-clean_ships_with_names = pilots_url_to_names(clean_ships_list)
-add_to_starships_coll(clean_ships_with_names)
-
-### check db
-
-
-for name_pilots in db.starships.find({}, {"_id": 0, "name": 1, "pilots": 1}):
-    print(name_pilots)
-
-for name in db.characters.find({}, {"_id": 1, "name": 1}):
-    print(name)
-
+# find all entries for pilot and replace the URL's with ObjectId's from character collection
+def replace_pilots():
+    # iterates through each starship in collection
+    for starship in db.starships.find({}):
+        pilot_ids = []
+        # iterates through each pilot in pilots field of starship
+        for pilot in starship["pilots"]:
+            # return data on pilot
+            resp = requests.get(pilot)
+            data = resp.json()
+            # find ObjectID of pilot from characters and add to a list
+            pilot_object = db.characters.find_one({"name": data["name"]}, {"_id": 1})
+            pilot_ids.append(pilot_object["_id"])
+        # replace starships pilots list with list of pilot ObjectId's
+        db.starships.update_one({"name": starship["name"]}, {"$set": {"pilots": pilot_ids}})
