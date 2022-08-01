@@ -13,6 +13,7 @@ into the MongoDB database that was pulled from https://swapi.dev/.
 ## Instructions
 
 Please run the requesting_sw.py file as __main__.py doesn't work.
+If you want to connect to your own database which is named something other than 'starwars' please change it in the variable
 
 ## Trello 
 
