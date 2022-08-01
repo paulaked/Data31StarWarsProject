@@ -1,20 +1,30 @@
-import requests
+
+from main import *
+import unittest
 
 
-# test to check that the content type of the API is a json type
-def test_api_content_in_json_form():
-    response = requests.get("https://swapi.dev/api/starships/")
-    assert response.headers["Content-type"] == "application/json"
+class Tests(unittest.TestCase):
 
-# This test to makes sure requests is reading from the Star Wars API URL
-# A status code of 200 means the request has succeeded
-def test_valid_api_request():
-    valid_starwars_api = requests.get("https://swapi.dev/api/")
-    assert valid_starwars_api.status_code == 200
+    def request_api_test(self):
+        try:
+            api_request("https://swapi.dev/api/starships")
+        except AssertionError:
+            self.fail("api_request raised an exception unexpectedly")
 
-# This test to makes sure requests can identify an invalid Star Wars API URL
-# A status code of 404 means that the request was unsuccessful & that URL doesn't exist
-def test_invalid_api_request():
-    invalid_starwars_api = requests.get("https://swapi.dev/apiadenike/")
-    assert invalid_starwars_api.status_code == 404
+    def character_id_search_test(self):
+        try:
+            find_character_id("Luke Skywalker")
+        except AssertionError:
+            self.fail("find_character_id raised an exception unexpectedly")
 
+    def test_add_pilot_id(self):
+        try:
+            add_pilot_id(api_request("https://swapi.dev/api/starships/2"))
+        except AssertionError:
+            self.fail("add_pilot_id raised an exception unexpectedly")
+
+    def test_create_starships_list(self):
+        try:
+            create_starships_list()
+        except AssertionError:
+            self.fail("create_starships_list raised an exception unexpectedly")
