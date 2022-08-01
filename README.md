@@ -1,30 +1,20 @@
 # Data 31 Star Wars Project
 
+## Author
+
+Sevkan Sahingozu
+
+## Tasks
+
+Within this project, I was tasked to request data from the API about starships and replace the URL links within the pilots key with the 
+ObjectID of the pilot that flies the starship. I was also tasked to drop unnecessary keys. Finally, I was asked to add the new data as a collection
+into the MongoDB database that was pulled from https://swapi.dev/.
+
 ## Instructions
 
-The character data in your MongoDB database has been pulled from https://swapi.dev/.
-As well as 'people', the API has data on starships.
-Using Python, write code to pull data on all available starships from the API.
-The "pilots" key contains URLs pointing to the characters who pilot the starship.
-Use these to replace 'pilots' with a list of ObjectIDs from our characters collection, then insert the starships into their own collection in MongoDB.
-(Make sure you drop any existing starships collections.)
+Please run the requesting_sw.py file as __main__.py doesn't work.
 
-You have until Monday EOD.
+## Trello 
 
-## Requirements
+https://trello.com/invite/b/YPENfpna/bfab24be2fcc33905b88e853f8b8586c/starwarsdb
 
-- Use good coding principles.  That means testing, appropriate comments, good naming conventions and handling errors gracefully.
-- Follow PEP 8
-- Create a job board in Trello or similar to keep track of your user stories.  Provide a link to that job board in your version of this README.
-- Your code should utilise functional programming OR object-oriented programming
-- Use Test Driven Development: write your tests first
-
-## Using this repo
-
-- Branch off from main.
-- Use your own name for the name of the branch (e.g. mine would be PaulaKedra - please copy this format).
-- Make sure you commit and push to the remote repo frequently to keep your work up-to-date.
-- The gitignore should catch most unnecessary project files, but do pay attention to what you are adding to the repo.
-- Replace this README with an appropriate README for your project (including a link to your job board).
-
-## Test
