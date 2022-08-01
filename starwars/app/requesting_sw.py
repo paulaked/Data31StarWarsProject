@@ -2,7 +2,6 @@ import json
 import requests
 import pymongo
 
-
 #url = requests.get("https://swapi.dev/")
 
 class GetApi:
@@ -82,7 +81,7 @@ class GetApi:
 
     def add_data(self,ships):
         for ship in ships:
-            db.starships.insert_one(ship)
+            self.db.starships.insert_one(ship)
 
     def update_data(self, ships):
         for ship in ships:
@@ -95,28 +94,24 @@ class GetApi:
                 ship.pop('pilots')
                 ship['pilots'] = pilots_list
             # starships.update_one(updated)
-            print(ship)
+            #print(ship)
             db.starships.insert_one(ship)
 
+    #def change_data(self, ships):
+        #starships = db['starships']
 
-
-
-
-    def change_data(self, ships):
-        starships = db['starships']
-
-        for ship in ships:
-            pilots_list = []
-            for pilots in ship['pilots']:
-                pilot_detail = get_api.get_from_api(pilots)['name']
-                get_id = db.characters.find_one({"name": pilot_detail})
-                pilot_id = get_id.get('_id')
-                pilots_list.append(pilot_id)
-                ships.pop('pilots')
-                ships['pilots'] = pilots_list
+        #for ship in ships:
+        #    pilots_list = []
+        #    for pilots in ship['pilots']:
+        #        pilot_detail = get_api.get_from_api(pilots)['name']
+        #        get_id = db.characters.find_one({"name": pilot_detail})
+        #        pilot_id = get_id.get('_id')
+        #        pilots_list.append(pilot_id)
+        #        ships.pop('pilots')
+        #        ships['pilots'] = pilots_list
             #starships.update_one(updated)
-            print(ships)
-            db.starships.insert_one(ships)
+            #print(ships)
+        #    db.starships.insert_one(ships)
 
             #pilots_list =[]
             #for key in ships['pilots']:
@@ -145,10 +140,6 @@ class GetApi:
         #        pilots_list.append(pilot_id)
         #        pilot = pilot_id
 
-
-
-
-
         #for ship in ships:
         #    db.starships.insert_one(ship)
         #    if ship['pilots'] == []:
@@ -166,15 +157,6 @@ class GetApi:
         #        for starship in db.starships.find():
         #            starship.update({'pilots':pilot_id_list})
 
-
-
-
-
-
-
-
-
-
         #for ship in ships:
         #    for pilot in ship['pilots']:
         #        if isinstance(ship['pilots'], pilot):
@@ -184,13 +166,11 @@ class GetApi:
         #            ship['pilots'][pilot] = get_id.get('_id')
         #    db.starships.insert_one(ship)
 
-
                 #pilot_detail = get_api.get_from_api(pilot)['name']
                 #get_id = db.characters.find_one({"name": pilot_detail})
                 #print(get_id.get('_id'))
                 #pilot = get_id.get('_id')
             #db.starships.insert_one(ship)
-
 
         #print(pilot_data)
         #print(ships)
@@ -205,7 +185,11 @@ class GetApi:
                 #print(get_api.get_from_api(pilot_url))
 
     def read_from_db(self):
-        pass
+        try:
+            for ships in db.starships.find({},{"name":1, "pilots": 1}):
+                print(ships)
+        except:
+            print("Collection doesn't exist")
 
 get_api = GetApi()
 db = get_api.set_up_db()
@@ -213,8 +197,8 @@ ships = get_api.get_starships()
 ships = get_api.drop_columns(ships)
 pilots = get_api.get_pilots(ships)
 get_api.update_data(ships)
+get_api.read_from_db()
 #get_api.change_data(ships)
 #get_api.add_data(ships)
 #get_api.change_data(ships)
 #get_api.read_from_db()
-
