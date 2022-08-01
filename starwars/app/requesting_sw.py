@@ -59,3 +59,14 @@ def tform_in(db):  # Checks if last page of JSON data has been reached
             page += 1
 
     return final
+
+
+def read_db(db):  # Loop through starships collection and give the names and pilots
+
+    try:
+        for name_pilots in db.starships.find({}, {"_id": 0, "name": 1, "pilots": 1}):
+            print(name_pilots)
+    except:
+        return False
+
+    return True
