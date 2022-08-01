@@ -44,11 +44,11 @@ def get_starships():                                            # this f will ou
 def test_pilot_ID_list():
     test_list = []
     characters = db.characters.find(
-        {"$or": [{"name": "Chewbacca"}, {"name": "Han Solo"}, {"name": "Lando Calrissian"}, {"name": "Nien Nunb"}]})
+        {"$or": [{"name": "Chewbacca"}, {"name": "Han Solo"}, {"name": "Lando Calrissian"}, {"name": "Nien Nunb"}]})        #these are the names of pilots in starships 10.
     for character in characters:
         character_id = character["_id"]
-        test_list.append(character_id)
-    assert pilot_ID_list("https://swapi.dev/api/starships/10/") == test_list
+        test_list.append(character_id)                                                                                      #the function should create this list of pilot IDs
+    assert pilot_ID_list("https://swapi.dev/api/starships/10/") == test_list                                                #asserting that the function does as intended.
 
 def pilot_ID_list(url):
 
@@ -65,5 +65,12 @@ def pilot_ID_list(url):
             character_id = character["_id"]     #Obtaining the object ID of the pilot
             pilot_ID_list.append(character_id)  #Adding the object ID of the pilot to a list
     return (pilot_ID_list)
+
+#Task 3 - creates json data of the starships, replacing the pilot ID urls with object IDs of the pilots.
+
+#This tests checks that unwnated information has not been included.
+
+def test_combine_starships_and_pilotID():
+    assert combine_starships_and_pilotID("https://swapi.dev/api/starships/12",pilot_ID_list("https://swapi.dev/api/starships/12").get("created") == None
 
 
