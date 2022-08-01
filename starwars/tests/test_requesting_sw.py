@@ -2,15 +2,16 @@
 # Test function that pulls all available starships from api
 import unittest
 import sys
+from unittest import TestCase
 
 import pymongo.database
 import requests
-
+import mongomock
 from ..app import requesting_sw
 
-#sys.path.insert(0, "..")
+sys.path.insert(0, "..")
 #from ..app.requesting_sw import *
-from ..app.requesting_sw import GetStarwarsAPI
+#from ..app.requesting_sw import get_data_from_api
 
 
 class APIUnittests(unittest.TestCase):
@@ -34,15 +35,29 @@ class APIUnittests(unittest.TestCase):
         response_body = response.json()
         assert response_body["count"] == 36  # value of number of starships
 
-    api_testing = GetStarwarsAPI()
-    db = requesting_sw.create_db_collection('starwars31')
+    def test_can_create_db(self):
+        '''
+        Test to check if mongodb database can be created
+        :return:
+        '''
+        self.assertIsNotNone(mongomock.MongoClient())
 
-    def test_for_db(self):
-        '''
-        Test to check if the database created exists
-        :return: Passed or Failed (based on if database is found)
-        '''
-        self.assertIsInstance(type(self.db), pymongo.database.Database, "not exists")
+
+#    def test_get_api_info(url):
+#        # Checking that the response from the API is in dictionary form.
+#        response = {"key": "value"}
+#        assert type(get_data_from_api(url)) == type(response)
+
+    #def test_
+#    api_testing = GetStarwarsAPI()
+#    db = requesting_sw.create_db_collection('starwars31')
+
+#    def test_for_db(self):
+#        '''
+#        Test to check if the database created exists
+#        :return: Passed or Failed (based on if database is found)
+#        '''
+#        self.assertIsInstance(type(self.db), pymongo.database.Database, "not exists")
 
 
 
