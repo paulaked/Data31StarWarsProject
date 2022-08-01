@@ -1,14 +1,13 @@
 import requests
-import json
 import pymongo
 
 
-def set_db(dbname):
-    # Connect to the starwars database
+def set_db():
+    # Connecting to the starwars database
     client = pymongo.MongoClient()
-    db = client[dbname]
+    db = client['starwars31']
 
-    # Checking if the starships collections exists
+    # Creating the starships collections
 
     try:
         db.create_collection("starships")
@@ -22,8 +21,6 @@ def set_db(dbname):
         print("The Starships collection has been deleted and recreated")
 
     return db
-
-
 
 
 def get_api():
@@ -55,8 +52,8 @@ def get_starships():
             pg_number += 1
 
 
-def drop_unwated_columns(ships):
-    # delete the 'created', 'edited' and 'url'
+def drop_unwanted_columns(ships):
+    # deleting the 'created', 'edited' and 'url'
     for ship in ships:
         try:
             del ship['url']
@@ -75,3 +72,45 @@ def drop_unwated_columns(ships):
 
     return ships
 
+
+def get_pilots(ships):
+    pilots = []
+    for ship in ships:
+        if ship['pilots']:
+            for pilot in ship['pilots']:
+                pilots.append(get_api_info(pilot))
+    return pilots
+
+
+def add_data(ships):
+    for ship in ships:
+        db.starships.insert_one(ship)
+
+
+def update_data(ships):
+    for ship in ships:
+        pilot_list = []
+        for pilots in ship['pilots']:
+            pilot_info = get_api_info(pilots)['name']
+            get_id = db.characters.find_one({"name": pilot_info})
+            pilot_id = get_id.get('_id')
+            pilot_list.append(pilot_id)
+            ship.pop('pilots')
+            ship['pilots'] = pilot_list
+        db.starships.insert_one(ship)
+
+
+def read_from_db():
+    try:
+        for ships in db.starships.find({},{"name": 1, "pilots": 1}):
+            print(ships)
+    except:
+        print("Collection doesn't exist")
+
+
+db = set_db()
+ships = get_starships()
+ships = drop_unwanted_columns(ships)
+pilots = get_pilots(ships)
+update_data(ships)
+read_from_db()
