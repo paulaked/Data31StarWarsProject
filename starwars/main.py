@@ -33,3 +33,15 @@ def get_starships():  # this f will output a list of all the starships in the AP
             list_of_starships.append(json_data["url"])  # so we add the starship to our list of starships
         i = i + 1  # now we test the next available url
     return (list_of_starships)
+
+#Task 2: create a function that takes in a starship and outputs the starship with new object ID's.
+
+def test_pilot_ID_list():
+    test_list = []
+    characters = db.characters.find(
+        {"$or": [{"name": "Chewbacca"}, {"name": "Han Solo"}, {"name": "Lando Calrissian"}, {"name": "Nien Nunb"}]})
+    for character in characters:
+        character_id = character["_id"]
+        test_list.append(character_id)
+    assert pilot_ID_list("https://swapi.dev/api/starships/10/") == test_list
+
