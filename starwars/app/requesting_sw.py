@@ -37,7 +37,7 @@ class GetStarwarsAPI:
         Function to return data from API
         :return: retrieves requested Json data
         '''
-        response = requests.get(url) #requests data from url
+        response = requests.get(url) #requests json data from url
         return response.json() #return the json data
 
 
