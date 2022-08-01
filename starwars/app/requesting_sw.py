@@ -1,5 +1,6 @@
 import requests
 import pymongo
+import json
 
 
 # noinspection PyUnresolvedReferences
@@ -35,8 +36,8 @@ def api_status():
 
 def get_api_info(url):
     # Exploring the Star ships information from the API
-    response = requests.get(url)
-    return response.json()
+    response = requests.get(url).json()
+    return response
 
 
 def get_starships():
@@ -102,9 +103,9 @@ def insert_data(ships):
 
 
 def read_from_db():
-    # Reading the newly transformed data from the Star Wars database.
+    # Reading the name and pilot list from the newly transformed data from the Star Wars database.
     try:
-        for ships in db.starships.find({}, {"name": 1, "pilots": 1}):
+        for ships in db.starships.find({}, {"_id": 0}):
             print(ships)
     except:
         print("Collection doesn't exist")
