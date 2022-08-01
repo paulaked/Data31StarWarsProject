@@ -3,7 +3,7 @@ import requests
 import pymongo
 
 
-class GetStarwarsAPI:
+#class GetStarwarsAPI:
 
     def get_data_api(self):
         '''
@@ -39,6 +39,32 @@ class GetStarwarsAPI:
         '''
         response = requests.get(url) #requests json data from url
         return response.json() #return the json data
+
+
+    def starship_data(db):
+        '''
+        Function to transform the Json data and populate it into starships collections
+        in a 'name':['Starship name'], 'pilots':['pilots objectID'] format
+        :param db:the database
+        :return: database collection starship
+        '''
+        page_number = 1
+        while not False:
+            starships_data = get_data_from_api("https://swapi.dev/api/starships/?page=" + str(page_number))
+
+            for starship in starships_data['results']:
+
+                list_of_pilots = []
+
+            if starships_data['next'] is None:
+                print("All pages checked...")
+                True
+            else:
+                page_number = page_number + 1
+        return False
+
+
+
 
 
 
