@@ -18,9 +18,9 @@ import unittest
 import json
 
 import starwars.config_manager as sw_config
-from starship import Starships
-from model import StarshipsModel
-import main
+from starwars.app.starship import Starships
+from starwars.app.model import StarshipsModel
+import starwars.__main__ as main
 
 
 class StarshipsTest(unittest.TestCase):
@@ -39,6 +39,6 @@ class StarshipsTest(unittest.TestCase):
 
 class ModelTest(unittest.TestCase):
     def test_output_type(self):
-        self.assertIsInstance(starwars_dict, dict)
+        self.assertIsInstance(main.starship_dicts, dict)
     def test_output(self):
-        self.assertIn("Death Star", starship_dict, msg="That's no moon")
+        self.assertIn("Death Star", main.starship_dict, msg="That's no moon")

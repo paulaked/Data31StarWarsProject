@@ -1,8 +1,8 @@
 
 class StarshipModel:
     def __init__(self, starship) -> None:
-        self.status = starship['status']
-        self.name = starship['model']
+        self.name = starship['name']
+        self.model = starship['model']
         self.starship_class = starship['starship_class']
         self.manufacturer = starship['manufacturer']
         self.cost_in_credits = starship['cost_in_credits']

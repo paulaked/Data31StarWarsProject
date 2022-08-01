@@ -1,12 +1,6 @@
-def extract():
-    pass
-
-def transform():
-    pass
-
-def load():
-    pass
-
+from etl import extract
+import requests
 
 if __name__ == '__main__':
-    pass  # Replace this with code to run your app
+    starship_data = extract()
+    print(starship_data)
