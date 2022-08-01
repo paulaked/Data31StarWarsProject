@@ -2,8 +2,8 @@ import requests
 import pymongo
 client = pymongo.MongoClient()
 db = client['starwars31']
-db.starships.drop()                                  #drops the starships collection if it already exists.
-new_col = db["starships"]                            #creates a new starships collection
+db.starships.drop()                                  # drops the starships collection if it already exists.
+new_col = db["starships"]                            # creates a new starships collection
 
 url = "https://swapi.dev/api/starships/?"
 request = requests.get(url)
@@ -11,10 +11,10 @@ json_data = requests.get(url).json()
 no_of_starships = json_data["count"]
 
 def test_length():
-    assert len(get_starships()) == no_of_starships  #tests that the code is finding all the requried starships.
+    assert len(get_starships()) == no_of_starships  # tests that the code is finding all the requried starships.
 
 def test_type():
-    assert type(get_starships()) == type([])        #test that the function is outputting in the desired format.
+    assert type(get_starships()) == type([])        # test that the function is outputting in the desired format.
 
 
 """Using Get Request only returned the first 10 results and so I did not use the following code. I have kept it in as 
@@ -59,16 +59,16 @@ def pilot_ID_list(url):
 
     request = requests.get(url)
     json_data = requests.get(url).json()
-    pilot_ID_list = []                          #the pilot's IDs are added to this list then this list replaces the url list.
-    for i in range(len(json_data["pilots"])):   #iterate through each pilot in the list.
-        url = json_data["pilots"][i]            #Obtaining the url of the pilot
+    pilot_ID_list = []                          # The pilot's IDs are added to this list then this list replaces the url list.
+    for i in range(len(json_data["pilots"])):   # iterate through each pilot in the list.
+        url = json_data["pilots"][i]            # Obtaining the url of the pilot
         request = requests.get(url)
         json_data_2 = requests.get(url).json()
-        pilot_name = json_data_2["name"]                 #Obtaining the name of the pilot.
+        pilot_name = json_data_2["name"]                 # Obtaining the name of the pilot.
         characters = db.characters.find({"name": pilot_name}, {"name": 1, "_id": 1})
         for character in characters:
-            character_id = character["_id"]     #Obtaining the object ID of the pilot
-            pilot_ID_list.append(character_id)  #Adding the object ID of the pilot to a list
+            character_id = character["_id"]     # Obtaining the object ID of the pilot
+            pilot_ID_list.append(character_id)  # Adding the object ID of the pilot to a list
     return (pilot_ID_list)
 
 # Task 3 - creates json data of the starships, replacing the pilot ID urls with object IDs of the pilots.
@@ -102,16 +102,16 @@ def test_add_to_collection():
     for item in db.starships.find({"name": "X-wing"}):
         characters = db.characters.find({"name": "Luke Skywalker"}, {"name": 1, "_id": 1})
         for character in characters:
-            character_id = character["_id"]                                                     # Obtaining the object ID of the pilot
-    assert(type(item["pilots"][0])) == type(character_id)                                       #Checking that the object IDs in the collection are of type bson.
+            character_id = character["_id"]                             # Obtaining the object ID of the pilot
+    assert(type(item["pilots"][0])) == type(character_id)               # Checking that the object IDs in the collection are of type bson.
 
 def add_to_collection(json_data):
     x = new_col.insert_one(json_data)
 
 #Task 5 - Bring all the functions together to create the new collection.
 
-db.starships.drop()                                     # drops the starships collection if it already exists.
-new_col = db["starships"]                               # creates a new collection
+db.starships.drop()                                     # Drops the starships collection if it already exists.
+new_col = db["starships"]                               # Creates a new collection
 
 for i in range(len(get_starships())):
     url_of_starship_i = get_starships()[i]
@@ -119,8 +119,7 @@ for i in range(len(get_starships())):
     data = combine_starships_and_pilotID(url_of_starship_i,list_of_pilot_IDs_for_starship_i)
     add_to_collection(data)
 
-    for item in db.starships.find():
-        print(item)
+
 
 
 
