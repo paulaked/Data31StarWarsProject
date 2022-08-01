@@ -68,12 +68,24 @@ def pilot_ID_list(url):
 
 #Task 3 - creates json data of the starships, replacing the pilot ID urls with object IDs of the pilots.
 
+#This test checks that the output is in the type expected.
+
+
+def test_combine_starships_and_pilotID():
+    assert type(combine_starships_and_pilotID("https://swapi.dev/api/starships/12",pilot_ID_list("https://swapi.dev/api/starships/12"))) == type({"test": "test"})
+
 #This tests checks that unwnated information has not been included.
 
-def test_combine_starships_and_pilotID():
-    assert type(combine_starships_and_pilotID("https://swapi.dev/api/starships/12",pilot_ID_list("https://swapi.dev/api/starships/12").get("created")) == type({"test": "test"})
+def test_combine_starships_and_pilotID_2():
+    assert combine_starships_and_pilotID("https://swapi.dev/api/starships/12",pilot_ID_list("https://swapi.dev/api/starships/12")).get("created") == None
 
-def test_combine_starships_and_pilotID():
-    assert combine_starships_and_pilotID("https://swapi.dev/api/starships/12",pilot_ID_list("https://swapi.dev/api/starships/12").get("created") == None
+def combine_starships_and_pilotID(url, pilot_ID_list):
+    request = requests.get(url)
+    json_data = requests.get(url).json()
+    json_data["pilots"] = pilot_ID_list
+    del json_data["created"]
+    del json_data["edited"]
+    del json_data["url"]
+    return (json_data)
 
 
