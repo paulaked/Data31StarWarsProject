@@ -10,13 +10,14 @@ import requesting_sw
 class TestStarwars(unittest.TestCase):
 
     def test_get_starships(self):
+        # with the empty lists, I'm resetting 'new' so that it doesn't aggregate data and interfere with the next test
         requesting_sw.new = []
         self.assertEqual(len(requesting_sw.get_starships(7, 15)), 5)
         requesting_sw.new = []
         self.assertEqual(len(requesting_sw.get_starships(29, 37)), 3)
         requesting_sw.new = []
         self.assertEqual(len(requesting_sw.get_starships(53, 57)), 0)
-        # I will not add the below test becauase it will most likely lead to 'Maximum requests reached' error. This test checks if the get_starships function has collected data on all 36 starships.
+        # I will not add the below test because it will most likely lead to 'Maximum requests reached' error. This test checks if the get_starships function has collected data on all 36 starships.
         #requesting_sw.new = []
         #self.assertEqual(len(requesting_sw.get_starships()), 36)
 
