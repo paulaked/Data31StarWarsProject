@@ -1,6 +1,6 @@
 # Data 31 Star Wars Project
 
-Coded By: Amir Naghieh
+Coded By: Amir Naghieh.
 Trello: https://trello.com/b/NFJFUhQ3/starwarsapi
 
 *To give instructions on how to run the request.
