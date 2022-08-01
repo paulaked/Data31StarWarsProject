@@ -8,6 +8,11 @@ def connect_with_db(db_name="starwars"):
     return client[db_name]
 
 
+def create_collection(coll_name="starships"):
+    db = connect_with_db()
+    return db.create_collection(coll_name)
+
+
 def api_connection(url):
     headers = {"Content-Type": "application/json"}
 
@@ -34,6 +39,7 @@ def clean_all_starships(starships_list):
         item.pop("url")
     return starships_list
 
+
 #
 # ### git commit do tad
 # def convert_people_url_to_name(url="https://swapi.dev/api/people/13/"):
@@ -57,8 +63,12 @@ def clean_all_starships(starships_list):
 
 url = "http://swapi.dev/api/starships"
 
-db = connect_with_db()
-connection_dict = api_connection(url)
+# db = connect_with_db()
+starships_collection = create_collection()
+print(starships_collection)
+
+# connection_dict = api_connection(url)
+
 # ships_list = get_all_starships(connection_dict)
 # clean_ships_list = clean_all_starships(ships_list)
 
