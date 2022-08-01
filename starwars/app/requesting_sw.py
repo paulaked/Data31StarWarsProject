@@ -28,11 +28,12 @@ class GetApi:
         return db
 
     def get_from_api(self, url):
+        '''return json file of everything'''
         resp = requests.get(url)
         return resp.json()
 
     def get_starships(self):
-        '''gets the starships'''
+        '''gets the starship details from every page'''
         page_number = 1 ## referencing starships page number
 
         ships = []
@@ -72,6 +73,7 @@ class GetApi:
         return ships
 
     def get_pilots(self, ships):
+        '''get pilot details'''
         #print(ships)
         pilot_data = []
         for ship in ships:
@@ -81,10 +83,12 @@ class GetApi:
         return pilot_data
 
     def add_data(self,ships):
+        '''add datat to the starships collection'''
         for ship in ships:
             self.db.starships.insert_one(ship)
 
     def update_data(self, ships):
+        '''updates the pilots urls with the pilots id'''
         for ship in ships:
             pilots_list = []
             for pilots in ship['pilots']:
@@ -99,6 +103,7 @@ class GetApi:
             db.starships.insert_one(ship)
 
     def read_from_db(self):
+        '''prints out the collection'''
         try:
             for ships in db.starships.find({},{"name":1, "pilots": 1}):
                 print(ships)
