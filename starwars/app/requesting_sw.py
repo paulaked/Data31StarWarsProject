@@ -54,7 +54,21 @@ import pymongo
 
             for starship in starships_data['results']:
 
-                list_of_pilots = []
+                def delete_fields(starship):
+                    '''
+
+                    :param starship: field in the starship
+                    :return: starship collection without the given fields
+                    '''
+                    starship.pop("created")
+                    starship.pop("edited")
+                    starship.pop("url")
+                    return starship
+
+                delete_fields(starship)
+
+                db.starships.insert_one(starship) #inserting transformed starship data into the collection
+
 
             if starships_data['next'] is None:
                 print("All pages checked...")
