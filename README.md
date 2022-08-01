@@ -10,7 +10,8 @@ Use these to replace 'pilots' with a list of ObjectIDs from our characters colle
 (Make sure you drop any existing starships collections.)
 
 
-## Goal of the project: Create a Starships Collection to include all the starships and reference Pilot IDs from the already existing Characters Collection.
+## Goal of the project
+Create a Starships Collection to include all the starships and reference Pilot IDs from the already existing Characters Collection.
 
 I created a Trello Job Board and you can find it at https://trello.com/b/Y2i4Xn1E to follow my progress.
 
