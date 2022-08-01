@@ -16,7 +16,7 @@ def get_starships(first=0,last=76):
             continue
     return new
 
-#this function accesses the data in 'new' defined above, enters the links, extracts the objectids, and replaces the links with the objectids.
+#this function accesses the data in 'new' defined above, finds the links in the pilots section and looks into them, extracts the objectids from within the links, and replaces the links with the objectids.
 def replace_links(first_index=1):
     for num in range(first_index,len(new)):
         for index, item in enumerate(new[num]["properties"]["pilots"]):
