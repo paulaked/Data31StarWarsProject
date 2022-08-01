@@ -3,6 +3,11 @@ import requests
 import json
 
 
+def connect_with_db(db_name="starwars"):
+    client = pymongo.MongoClient()
+    return client[db_name]
+
+
 def api_connection(url):
     headers = {"Content-Type": "application/json"}
 
@@ -29,15 +34,46 @@ def clean_all_starships(starships_list):
         item.pop("url")
     return starships_list
 
+#
+# ### git commit do tad
+# def convert_people_url_to_name(url="https://swapi.dev/api/people/13/"):
+#     api_json = api_connection(url)
+#     name = api_json['name']
+#     return name
+#
+#
+# #### pilots extraction
+# def change_pilot_to_name():
+#     for starship in clean_ships_list:
+#         pilots = starship.get("pilots")
+#         if len(pilots) == 0:
+#             continue
+#         else:
+#             pilots_names = []
+#             for pilot in pilots:
+#                 pilots_names.append(convert_people_url_to_name(pilot))
+#             starship["pilots"] = pilots_names
+
 
 url = "http://swapi.dev/api/starships"
 
+db = connect_with_db()
 connection_dict = api_connection(url)
-ships_list = get_all_starships(connection_dict)
+# ships_list = get_all_starships(connection_dict)
+# clean_ships_list = clean_all_starships(ships_list)
 
-print(ships_list)
+# for el in clean_ships_list:
+#     print(el["pilots"])
 
-clean_ships_list = clean_all_starships(ships_list)
 
-print(clean_ships_list[0])
+#### mongo
 
+
+# characters = db.characters.find({"name":"Chewbacca"},{"name":1})
+
+# for char in characters:
+#     ch = char
+#     print(char)
+# print(type(ch["_id"]))
+# for i, x in enumerate(clean_ships_list):
+#     print(i+1, x)
