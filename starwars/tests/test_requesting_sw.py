@@ -6,3 +6,4 @@ from starwars.app.requesting_sw import*
 def test_conection_status_code():
     response = requests.get("http://swapi.dev/api/starships")
     assert response.status_code == 200
+
