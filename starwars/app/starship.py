@@ -1,22 +1,17 @@
 from app.model import StarshipModel
 import requests
-import starwars.config_manager as sw_conf
 
 
 class Starships:
-    def __init__(self) -> None:
-        self.url: str = sw_conf.SWAPI_STARSHIPS
+    def __init__(self, url) -> None:
+        self.url: str = url
         self.request = requests.get(self.url)
         self.response = self.request.json()
-        self.sw_dict: dict = {}
+        self.sw_list: list = []
 
     def model_response(self):
-        starships = self.response['results']
-        for starship in starships:
+        starships = self.response
+        for starship in starships['results']:
             StarshipModel(starship)
-            print(starship)
-            self.sw_dict.update({starship['name']: starship})
-
-
-Starships.model_response()
-print(Starships.sw_dict)
+            self.sw_list.append(starship)
+        return self.sw_list
