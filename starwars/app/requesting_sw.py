@@ -67,8 +67,25 @@ import pymongo
 
                 delete_fields(starship)
 
-                db.starships.insert_one(starship) #inserting transformed starship data into the collection
+                list_of_pilots = []
 
+                def pilot_name_to_id():
+                    '''
+                    Sub-function for getting pilot data
+
+                    :return: pilot
+                    '''
+                    for pilot_data in starships_data['pilots']:
+                        pilot_info = get_data_from_api(pilot_data).json
+                        pilot_name = pilot_info['name']
+
+                pilot_name_to_id() # function call
+
+                pilots_data = {'pilot': list_of_pilots}
+                starships_data.update(pilots_data) #update the starships data with pilots data
+
+
+                db.starships.insert_one(starship) #inserting transformed starship data into the collection
 
             if starships_data['next'] is None:
                 print("All pages checked...")
