@@ -15,7 +15,9 @@ function:
 """
 # Test function that pulls all available starships from api
 import unittest
-import json 
+import json
+
+from config_manager import *
 from starship import Starships
 from model import StarshipsModel
 from main import *
@@ -23,10 +25,16 @@ from main import *
 
 class StarshipsTest(unittest.TestCase):
     starships = Starships()
-
     def test_response(self):
-        self.assertEquals(self.starships(""), 200)
-        self.assertEquals(self.starships(""), 404)
-    
+        starship_url = SWAPI_STARSHIPS
+        self.assertEquals(self.starships(starship_url), 200)
+        
+    def test_fake_response(self):
+        fake_url = FAKE_URL
+        self.assertEquals(self.starships(fake_url), 404)
+
     def  test_json(self):
-        self.assertIsInstance(self.starships(""), json)
+        self.assertIsInstance(self.starships(SWAPI_STARSHIPS), json)
+
+class ModelTest(unittest.TestCase):
+    pass
