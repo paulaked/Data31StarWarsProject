@@ -29,4 +29,9 @@ You have until Monday EOD.
 
 - Naming convention used for the database of this project is 'starwars31'. This is the default database this project will interact with.
 
+
 ## Trello job board:
+
+https://trello.com/invite/b/A1ESNnVM/97e2d15de8e1b1cc7f43393c3e28ceaf/data31starwarsproject
+
+
