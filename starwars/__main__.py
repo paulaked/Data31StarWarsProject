@@ -1,5 +1,4 @@
-from etl import extract, transform
-import requests
+from etl import *
 
 if __name__ == '__main__':
     starship_data = extract()

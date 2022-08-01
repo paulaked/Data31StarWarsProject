@@ -2,18 +2,28 @@ from app.starship import Starships
 import starwars.config_manager as sw_conf
 import requests
 import pymongo
+from bson import ObjectId
 
 connect = pymongo.MongoClient()
-db = connect['starwars']
+db = connect[sw_conf.DATABASE]
 characters = db.characters
+
+
+def already_exists(collection):
+    try:
+        db.validate_collection(collection)
+        return True
+    except:
+        return False
 
 
 def get_pilot(pilot_url):
     response = requests.get(pilot_url)
     pilot_data = response.json()
     pilot_name = pilot_data['name']
-    pilot_record = characters.find({"name": pilot_name})
-    return pilot_record['_id']
+    pilot_record = characters.find_one({"name": pilot_name})
+    pilot_id = pilot_record.get('_id')
+    return pilot_id
 
 
 def get_film(film_url):
@@ -24,8 +34,8 @@ def get_film(film_url):
 
 def replace_pilots(starship_pilots):
     for index, pilot in enumerate(starship_pilots):
-        pilot_name = get_pilot(pilot)
-        starship_pilots[index] = pilot_name
+        pilot_id = get_pilot(pilot)
+        starship_pilots[index] = pilot_id
     return starship_pilots
 
 
@@ -62,5 +72,10 @@ def transform(starship_data):
     return starship_data
 
 
-def load():
-    pass
+def load(transformed_data):
+    if already_exists('starships'):
+        db.drop_collection('starships')
+    starships = db['starships']
+    for record in transformed_data:
+        print(record)
+        break

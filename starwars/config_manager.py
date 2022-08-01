@@ -8,3 +8,4 @@ _config.read(os.path.join(PROJECT_ROOT_DIR, 'config.ini'))
 
 SWAPI_STARSHIPS = _config['default']['starships']
 FAKE_URL = _config['default']['fake_url']
+DATABASE = _config['default']['database']
