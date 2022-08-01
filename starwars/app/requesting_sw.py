@@ -5,7 +5,7 @@ import json
 new = []
 
 # this function will extract data from every starship in the API. I've hardcoded the number of starships to be extracted (76).
-# the better way would be to use the next page to use for iterations.
+# the better way would be to use the next page link to use for iterations.
 def get_starships(first=0,last=76):
     for uid in range(first,last):
         req = requests.get(f"https://www.swapi.tech/api/starships/{uid}")
