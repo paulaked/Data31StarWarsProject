@@ -10,7 +10,14 @@ def connect_with_db(db_name="starwars"):
 
 def create_collection(coll_name="starships"):
     db = connect_with_db()
-    return db.create_collection(coll_name)
+
+    try:
+        db.create_collection(coll_name)
+    except:
+        print("Collection already exists, all collection date will be replaced!!!")
+        db.starships.drop()
+        db.create_collection(coll_name)
+    return db
 
 
 def api_connection(url):
@@ -40,50 +47,33 @@ def clean_all_starships(starships_list):
     return starships_list
 
 
-#
 # ### git commit do tad
-# def convert_people_url_to_name(url="https://swapi.dev/api/people/13/"):
-#     api_json = api_connection(url)
-#     name = api_json['name']
-#     return name
-#
-#
-# #### pilots extraction
-# def change_pilot_to_name():
-#     for starship in clean_ships_list:
-#         pilots = starship.get("pilots")
-#         if len(pilots) == 0:
-#             continue
-#         else:
-#             pilots_names = []
-#             for pilot in pilots:
-#                 pilots_names.append(convert_people_url_to_name(pilot))
-#             starship["pilots"] = pilots_names
+def convert_pilot_url_to_name(url):
+    api_json = api_connection(url)
+    name = api_json['name']
+    return name
+
+
+def pilots_names_to_ids(ships_list):
+    for starship in ships_list:
+        pilots_ids = []
+        for pilot in starship.get("pilots"):
+            pilot_name = convert_pilot_url_to_name(pilot)
+            pilot_id = db.characters.find({"name":pilot_name}, {"_id":1})
+            pilots_ids.append(pilot_id)
+        starship["pilots"] = pilots_ids
+    return ships_list
 
 
 url = "http://swapi.dev/api/starships"
 
-# db = connect_with_db()
-starships_collection = create_collection()
-print(starships_collection)
+db = connect_with_db()
 
-# connection_dict = api_connection(url)
+connection_dict = api_connection(url)
+ships_list = get_all_starships(connection_dict)
+clean_ships_list = clean_all_starships(ships_list)
 
-# ships_list = get_all_starships(connection_dict)
-# clean_ships_list = clean_all_starships(ships_list)
+pilots_names_new = pilots_names_to_ids(clean_ships_list)
 
-# for el in clean_ships_list:
-#     print(el["pilots"])
-
-
-#### mongo
-
-
-# characters = db.characters.find({"name":"Chewbacca"},{"name":1})
-
-# for char in characters:
-#     ch = char
-#     print(char)
-# print(type(ch["_id"]))
-# for i, x in enumerate(clean_ships_list):
-#     print(i+1, x)
+for ship in pilots_names_new:
+    print(ship)
