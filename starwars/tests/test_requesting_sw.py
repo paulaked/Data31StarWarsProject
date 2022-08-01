@@ -21,3 +21,7 @@ class ApiTesting(unittest.TestCase):
 
     def test_set_up_db(self):
         self.assertIsInstance(self.api_test, pymongo.database.Database, "DatabaseX not returned")
+
+    def test_num_starship(self):
+        num_ships = (requesting_sw.get_api("https://swapi.dev/api/starships").json())['count']
+        self.assertEqual(num_ships, 36, 'Wrong Number!')
