@@ -24,7 +24,7 @@ def tform_in(db):  # Checks if last page of JSON data has been reached
     final = False
     page = 1
 
-    print("continue")
+    print("Searching...")
 
     while not final:
 
