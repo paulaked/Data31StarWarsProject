@@ -71,6 +71,9 @@ def pilot_ID_list(url):
 #This tests checks that unwnated information has not been included.
 
 def test_combine_starships_and_pilotID():
+    assert type(combine_starships_and_pilotID("https://swapi.dev/api/starships/12",pilot_ID_list("https://swapi.dev/api/starships/12").get("created")) == type({"test": "test"})
+
+def test_combine_starships_and_pilotID():
     assert combine_starships_and_pilotID("https://swapi.dev/api/starships/12",pilot_ID_list("https://swapi.dev/api/starships/12").get("created") == None
 
 
