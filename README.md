@@ -9,25 +9,21 @@ The "pilots" key contains URLs pointing to the characters who pilot the starship
 Use these to replace 'pilots' with a list of ObjectIDs from our characters collection, then insert the starships into their own collection in MongoDB.
 (Make sure you drop any existing starships collections.)
 
-You have until Monday EOD.
 
-## Requirements
+## Goal of the project: Create a Starships Collection to include all the starships and reference Pilot IDs from the already existing Characters Collection.
 
-- Use good coding principles.  That means testing, appropriate comments, good naming conventions and handling errors gracefully.
-- Follow PEP 8
-- Create a job board in Trello or similar to keep track of your user stories.  Provide a link to that job board in your version of this README.  ##https://trello.com/b/Y2i4Xn1E##
-- Your code should utilise functional programming OR object-oriented programming
-- Use Test Driven Development: write your tests first
+I created a Trello Job Board and you can find it at https://trello.com/b/Y2i4Xn1E to follow my progress.
 
-## Using this repo
+### Process
 
-- Branch off from main.
-- Use your own name for the name of the branch (e.g. mine would be PaulaKedra - please copy this format).
-- Make sure you commit and push to the remote repo frequently to keep your work up-to-date.
-- The gitignore should catch most unnecessary project files, but do pay attention to what you are adding to the repo.
-- Replace this README with an appropriate README for your project (including a link to your job board).
+1. Explore the API found at https://swapi.dev/ 
+2. Pull data on all available starships from the API.
+3. The database I used is 'starwars' so you can change that if your database is named differently, please do make sure to change it in the requesting_sw.py file.
+4. Look at the pilots by querying the characters collection in the database to add the Object ID to the pilot list in the Starships collection.
 
 
+I used Functional Programming to go through the process and used pytest to test the functions.
 
-Author: Cynthia Musiime
+ 
+Author: Susan Cynthia Musiime
 
