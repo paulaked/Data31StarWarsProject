@@ -10,7 +10,7 @@ class StarshipModel:
         self.crew = starship['crew']
         self.passengers = starship['passengers']
         self.max_atmosphering_speed = starship['max_atmosphering_speed']
-        self.MGLT = starship['MGLT']
+        self.mglt = starship['MGLT']
         self.cargo_capacity = starship['cargo_capacity']
         self.consumables = starship['consumables']
         self.films = starship['films']

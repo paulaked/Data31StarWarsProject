@@ -2,6 +2,7 @@ from model import StarshipModel
 import requests
 from config_manager import *
 
+
 class Starships():
     def __init__(self) -> None:
         self.url = SWAPI_STARSHIPS
