@@ -1,7 +1,7 @@
 import requests
 import json
 
-# all the data that I will extract and transform will be contained within 'new'
+# all the data that I will extract and transform will be contained and updated within 'new'
 new = []
 
 # this function will extract data from every starship in the API. I've hardcoded the number of starships to be extracted (76).
