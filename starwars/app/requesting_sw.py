@@ -14,7 +14,7 @@ class GetApi:
     def set_up_db(self):
         '''set up database and make a starships collection'''
         client = pymongo.MongoClient()
-        dbname = input("Please enter your database name: ")
+        dbname = 'starwars'
         db = client[dbname]
 
         try:
