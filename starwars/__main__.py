@@ -20,7 +20,7 @@ if __name__ == '__main__':
     sys.stdout = suppress_text
 
     # Run tests
-    main(module='Test_Plan', exit=False)
+    main(module='tests.test_requesting_sw', exit=False)
 
     # Release output.
     sys.stdout = sys.__stdout__
