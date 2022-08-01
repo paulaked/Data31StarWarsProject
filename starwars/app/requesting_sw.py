@@ -32,6 +32,15 @@ class GetStarwarsAPI:
             print("New 'starships' Collection is created..")
         return db #return updated db
 
+    def get_data_from_api(url):
+        '''
+        Function to return data from API
+        :return: retrieves requested Json data
+        '''
+        response = requests.get(url) #requests data from url
+        return response.json() #return the json data
+
+
 
 
 
