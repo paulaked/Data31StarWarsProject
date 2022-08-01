@@ -18,3 +18,7 @@ def test_invalid_api_request():
     invalid_starwars_api = requests.get("https://swapi.dev/apiadenike/")
     assert invalid_starwars_api.status_code == 404
 
+# test to check if collection data is a dictionary
+def test_collection():
+    for i in starships.find():
+        assert type(i) is dict
