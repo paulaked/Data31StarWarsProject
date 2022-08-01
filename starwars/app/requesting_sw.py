@@ -24,7 +24,7 @@ def get_data_api():
 # search for the pilot's name and characters db to find their ObjectID.
 def replace_object_ids():
     starship_dets = []
-    for item in pull_data():
+    for item in get_data_api():
         for elements in item:
             starship_dets.append(requests.get(elements["url"]).json()["result"]["properties"])
     replace_object_ids_data = []
