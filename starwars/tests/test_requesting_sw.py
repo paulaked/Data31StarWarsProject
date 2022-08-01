@@ -19,26 +19,26 @@ import json
 
 import starwars.config_manager as sw_config
 from starwars.app.starship import Starships
-from starwars.app.model import StarshipsModel
-import starwars.__main__ as main
+import starwars.etl as etl
 
 
 class StarshipsTest(unittest.TestCase):
-    starships = Starships()
-    starship_url = sw_config.SWAPI_STARSHIPS
-    def test_response(self, url=starship_url):
-        self.assertEquals(self.starships(url), 200)
-        
-    def test_fake_response(self):
-        fake_url = sw_config.FAKE_URL
-        self.assertEquals(self.starships(fake_url), 404)
+    starships = Starships(sw_config.SWAPI_STARSHIPS)
 
-    def  test_json(self, url=starship_url):
+    def test_response(self):
+        response = starships.response
+        self.assertEqual(response.status_code, 200, "Status code: OK")
 
-        self.assertIsInstance(self.starships(url), json)
+    def test_list(self):
+        self.assertIsInstance(etl.extract(), list)
+
 
 class ModelTest(unittest.TestCase):
     def test_output_type(self):
         self.assertIsInstance(main.starship_dicts, dict)
+
     def test_output(self):
         self.assertIn("Death Star", main.starship_dict, msg="That's no moon")
+
+
+StarshipsTest.test_response()

@@ -3,7 +3,7 @@ import requests
 
 
 class Starships:
-    def __init__(self, url) -> None:
+    def __init__(self, url: object) -> None:
         self.url: str = url
         self.request = requests.get(self.url)
         self.response = self.request.json()
