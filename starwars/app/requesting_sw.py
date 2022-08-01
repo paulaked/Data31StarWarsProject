@@ -46,7 +46,7 @@ def starship_data(db):
     Function to transform the Json data and populate it into starships collections
     in a 'name':['Starship name'], 'pilots':['pilots objectID'] format
     :param db:the database
-    :return: database collection starship
+    :return: a database collection starship
     '''
     json = False
     page_number = 1
