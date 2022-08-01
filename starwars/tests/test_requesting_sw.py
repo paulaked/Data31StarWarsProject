@@ -16,6 +16,9 @@ class TestStarwars(unittest.TestCase):
         self.assertEqual(len(requesting_sw.get_starships(29, 37)), 3)
         requesting_sw.new = []
         self.assertEqual(len(requesting_sw.get_starships(53, 57)), 0)
+        # I will not add the below test becauase it will most likely lead to 'Maximum requests reached' error. This test checks if the get_starships function has collected data on all 36 starships.
+        #requesting_sw.new = []
+        #self.assertEqual(len(requesting_sw.get_starships()), 36)
 
         
     def test_replace_links(self):
