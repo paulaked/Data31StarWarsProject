@@ -15,7 +15,7 @@ You have until Monday EOD.
 
 - Use good coding principles.  That means testing, appropriate comments, good naming conventions and handling errors gracefully.
 - Follow PEP 8
-- Create a job board in Trello or similar to keep track of your user stories.  Provide a link to that job board in your version of this README.
+- Create a job board in Trello or similar to keep track of your user stories.  Provide a link to that job board in your version of this README.  ##https://trello.com/b/Y2i4Xn1E##
 - Your code should utilise functional programming OR object-oriented programming
 - Use Test Driven Development: write your tests first
 
