@@ -2,6 +2,7 @@ import requests
 import pymongo
 
 
+# noinspection PyUnresolvedReferences
 def set_db():
     # Connecting to the starwars database
     client = pymongo.MongoClient()
@@ -11,6 +12,7 @@ def set_db():
 
     try:
         db.create_collection("starships")
+        # noinspection PyUnresolvedReferences
 
     except pymongo.errors.CollectionInvalid:
         print("Collection Starships already exists")

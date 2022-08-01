@@ -10,12 +10,12 @@ url = "https://swapi.dev/api/starships/"
 
 def test_set_db():
     # See if the database exists
-    assert(type(set_db('starwars')), pymongo.database.Database)
+    assert(type(set_db()), pymongo.database.Database)
 
 
-def test_get_api():
+def test_api_status():
     # See if the api is valid.
-    assert get_api().status_code == 200
+    assert api_status().status_code == 200
 
 
 def test_get_api_info():
@@ -28,3 +28,5 @@ def test_get_starships():
     # Ensuring that all ships have been extracted from the API.
     total_ships = get_api_info(url)['count']
     assert len(get_starships()) == total_ships
+
+#def
