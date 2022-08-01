@@ -1,5 +1,7 @@
-# Unit Testing Plan
-
+# Unit Testing Plan: There's 3 parts to the code. 
+# Part 1 is to gather data for all starships. My code iterates through 76 pages and some are empty so I will need to check the length of output to see if its not including pages with no starships.
+# Part 2 is to replace links with objectids. I will need to use an expected output for a segment of the starships, and check if my code will return the same values; that is to have objectids instead of links
+# Part 3 
 # Test function that pulls all available starships from api
 
 import unittest
