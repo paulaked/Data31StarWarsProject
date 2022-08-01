@@ -1,5 +1,5 @@
 import requests
-
+from app.requesting_sw import *
 
 # test to check that the content type of the API is a json type
 def test_api_content_in_json_form():
