@@ -4,24 +4,25 @@
 
 from starwars.app import requesting_sw
 import unittest
-import sys
-import requests
 import pymongo
 
 
 class ApiTesting(unittest.TestCase):
 
-    # Test function that pulls data from api.
-    def test_get_from_api(self):
+    def test_get_from_api(self):  # Test for data pulled from api
         status_code = requesting_sw.get_api("https://swapi.dev/api/people").status_code
         self.assertEqual(status_code, 200, "Error")
 
-    # Test Database set up function
-    api_test = requesting_sw.db_link('starwars')
+    api_test = requesting_sw.db_link('starwars')  # set up db
 
-    def test_set_up_db(self):
+    def test_set_up_db(self):  # check db returned
         self.assertIsInstance(self.api_test, pymongo.database.Database, "DatabaseX not returned")
 
-    def test_num_starship(self):
+    def test_num_starship(self):  # check num of db matches
         num_ships = (requesting_sw.get_api("https://swapi.dev/api/starships").json())['count']
         self.assertEqual(num_ships, 36, 'Wrong Number!')
+
+    def test_get_api_info(self):  # check dictionary form
+        dict_r = {"key": "value"}
+        self.assertEqual(type(dict_r), type(requesting_sw.get_api("https://swapi.dev/api/starships").json()),
+                         'Wrong Type!')
