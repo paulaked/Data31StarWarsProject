@@ -14,7 +14,7 @@ class ApiTesting(unittest.TestCase):
     # Test function that pulls data from api.
     def test_get_from_api(self):
         status_code = requesting_sw.get_api("https://swapi.dev/api/people").status_code
-        self.assertEqual(status_code, 200, "Incorrect response code")
+        self.assertEqual(status_code, 200, "Error")
 
     # Test Database set up function
     api_test = requesting_sw.db_link('starwars')
