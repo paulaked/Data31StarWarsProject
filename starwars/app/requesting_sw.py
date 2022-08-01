@@ -79,6 +79,11 @@ import pymongo
                         pilot_info = get_data_from_api(pilot_data).json
                         pilot_name = pilot_info['name']
 
+
+                        pilot_id = db.characters.find({"name": pilot_name}, {"": 1}) #get pilot data from characters collection in db
+                        for object_id in pilot_id:
+                            list_of_pilots.append(object_id["_id"]) #append the given pilot object_id's to list_of_pilots
+
                 pilot_name_to_id() # function call
 
                 pilots_data = {'pilot': list_of_pilots}
