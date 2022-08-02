@@ -21,3 +21,10 @@ def get_data():
         data = requests.get(data["next"]).json()
         starships.append(data["results"])
     return starships
+
+def replace_order_ids():
+    # Extract the starship URLs which link to the pilot details.
+    starship_details = []
+    for item in get_data():
+        for elements in item:
+            starship_details.append(requests.get(elements["url"]).json()["result"]["properties"])
