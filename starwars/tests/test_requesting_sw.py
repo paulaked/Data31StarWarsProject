@@ -11,3 +11,8 @@ def check_api_request():
 def test_get_from_order_ids():
     for i in replace_order_ids():
         assert type(i['name']) is str    
+
+# checking get_data is a string
+def test_get_data():
+    for i in get_data():
+        assert type(i['name']) is str
