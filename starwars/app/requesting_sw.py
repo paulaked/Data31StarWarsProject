@@ -4,11 +4,17 @@ import requests
 client = pymongo.MongoClient() # Connect to MongoDB.
 db = client["starwars"] # Connect to the starwars database.
 
-# function to drop the star ship collection if it already exists in the database
-def del_starships():
-    if db.starships.find({}) != "":
-        db.starships.delete_many({})
-    db.starships.drop()
+def drop_starship_collection():
+    # Ensure collection is not duplicated
+    db.starship.delete_many({})
+    db.drop_collection("starship")
+    print("starship collection has been dropped")
+
+
+def create_starship_collection():
+    # Create a starship collection
+    db.create_collection("starship")
+    print("starship collection has been created")
 
 # function to take an api url as a parameter, then converts the response into a json format.
 def get_data_api():
