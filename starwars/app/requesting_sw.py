@@ -17,7 +17,7 @@ def get_starships(first=0,last=76):
             continue
     return new
 
-#this function accesses the data in 'new' defined above, finds the links in the pilots section and looks into them, extracts the objectids from within the links, and replaces the links with the objectids.
+# this function accesses the data in 'new' defined above, finds the links in the pilots section and looks into them, extracts the objectids from within the links, and replaces the links with the objectids.
 def replace_links(first_index=1):
     for num in range(first_index,len(new)):
         for index, item in enumerate(new[num]["properties"]["pilots"]):
@@ -30,7 +30,7 @@ def replace_links(first_index=1):
             ney[index] = characters
     return new
 
-
+# this function creates a new db and collection on mongodb. It will also insert all data from 'new' into the mongodb database, and print out each item.
 def setup_and_insert_mongodb():
     client = pymongo.MongoClient()
     db = client['starwars_amir']
@@ -46,6 +46,7 @@ def setup_and_insert_mongodb():
         print(item)
     return True
 
+# here we are activating the functions
 get_starships()
 replace_links()
 setup_and_insert_mongodb()
