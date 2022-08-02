@@ -11,21 +11,10 @@ Use these to replace 'pilots' with a list of ObjectIDs from our characters colle
 
 You have until Monday EOD.
 
-## Requirements
-
-- Use good coding principles.  That means testing, appropriate comments, good naming conventions and handling errors gracefully.
-- Follow PEP 8
-- Create a job board in Trello or similar to keep track of your user stories.  Provide a link to that job board in your version of this README.
-- Your code should utilise functional programming OR object-oriented programming
-- Use Test Driven Development: write your tests first
-
-## Using this repo
-
-- Branch off from main.
-- Use your own name for the name of the branch (e.g. mine would be PaulaKedra - please copy this format).
-- Make sure you commit and push to the remote repo frequently to keep your work up-to-date.
-- The gitignore should catch most unnecessary project files, but do pay attention to what you are adding to the repo.
-- Replace this README with an appropriate README for your project (including a link to your job board).
+## How to setup and run program
+- in main file check yours DB name. If you have different name than "starwars" change db_name variable to your DB name
+- run main file
+- if you want to print list of starships collection as an output uncomment last 4 code lines in main file
 
 ## Process planing
 - Link to my Trello board: https://trello.com/b/hSgy0Opv/sparta-star-wars-project
