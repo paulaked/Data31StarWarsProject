@@ -52,7 +52,6 @@ def extract():
     isNext = True
     while isNext:
         starships_list = Starships(url)
-        print(f"Test print: {starships_list}")
         page = starships_list.model_response()
         starships.extend(page)
         if starships_list.response['next'] is None:
@@ -66,10 +65,10 @@ def transform(starship_data):
     for index, starship in enumerate(starship_data):
         if len(starship['pilots']) > 0:
             starship_pilots = starship['pilots']
-            starship[index] = replace_pilots(starship_pilots)
+            starship['pilots'] = replace_pilots(starship_pilots)
         if len(starship['films']) > 0:
             starship_films = starship['films']
-            starship[index] = replace_films(starship_films)
+            starship['films'] = replace_films(starship_films)
     return starship_data
 
 
@@ -77,5 +76,4 @@ def load(transformed_data):
     if already_exists('starships'):
         db.drop_collection('starships')
     starships = db['starships']
-    starships_list = [record for record in transformed_data]
-    starships.insert_many(starships_list)
+    starships.insert_many(transformed_data)
