@@ -4,6 +4,8 @@ Coded By: Amir Naghieh.
 
 Trello: https://trello.com/b/NFJFUhQ3/starwarsapi
 
+Using API: https://swapi.tech/
+
 ## Instructions
 -Run your mongo shell
 
