@@ -52,6 +52,7 @@ def extract():
     isNext = True
     while isNext:
         starships_list = Starships(url)
+        print(f"Test print: {starships_list}")
         page = starships_list.model_response()
         starships.extend(page)
         if starships_list.response['next'] is None:
@@ -76,6 +77,5 @@ def load(transformed_data):
     if already_exists('starships'):
         db.drop_collection('starships')
     starships = db['starships']
-    for record in transformed_data:
-        print(record)
-        break
+    starships_list = [record for record in transformed_data]
+    starships.insert_many(starships_list)
