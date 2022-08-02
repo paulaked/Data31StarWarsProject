@@ -28,3 +28,16 @@ def replace_order_ids():
     for item in get_data():
         for elements in item:
             starship_details.append(requests.get(elements["url"]).json()["result"]["properties"])
+            
+    # Change pilot URLs with list of character OIDs.
+    replaced_data = []
+    for starship in starship_details:
+        pilot_list = []
+        for pilot in starship["pilots"]:
+            # find the pilot's name and search characters db to find the objectID
+            name = requests.get(pilot).json()["result"]["properties"]["name"]
+            pilot_id = db.characters.find_one({"name": name}, {"_id": 1})
+            pilot_list.append(pilot_id)
+        starship.update({'pilots': pilot_list})
+        replaced_data.append(starship)
+    return replaced_data        
