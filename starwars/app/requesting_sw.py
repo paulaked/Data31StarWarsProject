@@ -40,4 +40,13 @@ def replace_order_ids():
             pilot_list.append(pilot_id)
         starship.update({'pilots': pilot_list})
         replaced_data.append(starship)
-    return replaced_data        
+    return replaced_data  
+
+def add_starships():
+    # insert starships into their own collection into the database
+    drop_starships()
+    db.create_collection("starships")
+    for item in replace_order_ids():
+        if not item["pilots"]:
+            del item["pilots"]
+        db.starships.insert_one(item)
