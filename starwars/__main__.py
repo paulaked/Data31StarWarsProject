@@ -1,3 +1,6 @@
+from etl import *
 
 if __name__ == '__main__':
-    pass  # Replace this with code to run your app
+    starship_data = extract()
+    trans_starship = transform(starship_data)
+    load(trans_starship)
