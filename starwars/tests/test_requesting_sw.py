@@ -16,3 +16,13 @@ def test_get_from_order_ids():
 def test_get_data():
     for i in get_data():
         assert type(i['name']) is str
+
+# checking drop_starships is a dictionary
+def test_drop_starships():
+    for i in drop_starships():
+        for j in i['pilots']:
+            assert type(j) is str
+
+    x = 0
+    for i in db.starships.find({}):
+        assert type(i) is dict
