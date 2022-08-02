@@ -1,4 +1,5 @@
 import requests
+import pymongo
 import json
 
 # all the data that I will extract and transform will be contained and updated within 'new'
@@ -28,3 +29,23 @@ def replace_links(first_index=1):
             ney = new[count]["properties"]["pilots"]
             ney[index] = characters
     return new
+
+
+def setup_and_insert_mongodb():
+    client = pymongo.MongoClient()
+    db = client['starwars_amir']
+    db.starships76.drop()
+    try:
+        db.create_collection("starships76")
+    except pymongo.errors.CollectionInvalid:
+        print("Oops! collection already exists")
+    for item in new:
+        db.starships76.insert_one(item)
+    records = db.starships76.find({})
+    for item in records:
+        print(item)
+    return True
+
+get_starships()
+replace_links()
+setup_and_insert_mongodb()
