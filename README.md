@@ -26,3 +26,14 @@ You have until Monday EOD.
 - Make sure you commit and push to the remote repo frequently to keep your work up-to-date.
 - The gitignore should catch most unnecessary project files, but do pay attention to what you are adding to the repo.
 - Replace this README with an appropriate README for your project (including a link to your job board).
+
+MY TRELLO JOB BOARD
+https://trello.com/b/Ct7ObMDK/starwars
+
+In order for this code to work you will need to have a database in mongo db named 'starwars31' with a collection named 'characters'.
+The code creates a collection called starships which includes all the star ships that can be attained through the api mentioned above. 
+The collection also includes star ships that don't have registered pilots and where there are pilots for the ships the pilot's ObjectID are present.
+To execute the code run the main.py file. Functions are used and imported in the main file, the functions that are used to get the star ships data from 
+the api are located in the app folder, in the Update.py file. Additionally, the functions used to add the 'starship' (results_list) collection to the 
+database can be found in the database.py file. Testing has been done using unit testing and they have all passed, they can be found in the test_starwars.py file. 
+Planning was done using a job board which is linked below.
