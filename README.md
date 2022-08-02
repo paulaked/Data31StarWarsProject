@@ -27,7 +27,12 @@ You have until Monday EOD.
 - The gitignore should catch most unnecessary project files, but do pay attention to what you are adding to the repo.
 - Replace this README with an appropriate README for your project (including a link to your job board).
 
-- Naming convention used for the database of this project is 'starwars31'. This is the default database this project will interact with.
+- Naming convention:
+	- for the database of this project is 'starwars31'. This is 		the default database this project will interact with.
+	
+	- When testing to check the collection created:
+		Let localField:"pilots" instead of localField:"pilot"
+		in db.starships.aggregate function for '$lookup'.	
 
 
 ## Trello job board:
