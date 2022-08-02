@@ -26,3 +26,9 @@ def test_drop_starships():
     x = 0
     for i in db.starships.find({}):
         assert type(i) is dict
+
+# checking add_starships is a dictionary
+def test_add_starships():
+    for i in test_add_starships().find({}):
+        for j in i['pilots']:
+            assert type(j) is dict
