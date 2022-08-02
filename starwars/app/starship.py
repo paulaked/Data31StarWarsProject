@@ -14,4 +14,4 @@ class Starships:
         for starship in starships['results']:
             StarshipModel(starship)
             self.sw_list.append(starship)
-        print(self.sw_list[0])
+        return self.sw_list
